@@ -1,0 +1,3 @@
+Django
+yt-dlp
+ffmpeg-python

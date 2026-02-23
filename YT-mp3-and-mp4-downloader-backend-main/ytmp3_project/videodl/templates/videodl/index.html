@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube to MP4</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            padding-top: 40px;
+        }
+
+        .card {
+            backdrop-filter: blur(12px);
+            background: rgba(255,255,255,0.6);
+            padding: 25px;
+            width: 450px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            color: black;
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            width: 100%;
+            background: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 17px;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+
+    <h2>YouTube → MP4 Converter</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="youtube_url"
+               placeholder="Paste YouTube URL..."
+               required style="width:100%; padding:10px;">
+
+        <button type="submit" name="get_formats">
+            Convert
+        </button>
+    </form>
+
+    {% if formats %}
+    <hr>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="hidden" name="url" value="{{ url }}">
+
+        <label>Select Video Quality</label>
+        <select name="format_id">
+            {% for res in formats %}
+                <option value="{{ res }}">{{ res }}</option>
+             
+            {% endfor %}
+        </select>
+
+        <button type="submit" name="download">
+            Download Video
+        </button>
+    </form>
+
+    {% endif %}
+    <a href="{% url 'video_page' %}"
+            style="
+            display:inline-block;
+            padding:10px 18px;
+            background:#007bff;
+            color:white;
+            border-radius:6px;
+            text-decoration:none;
+            font-weight:600;
+            justify-content: center;
+            ">
+            🔗 Switch to MP3 Downloader
+        </a>
+</div>
+</body>
+</html>

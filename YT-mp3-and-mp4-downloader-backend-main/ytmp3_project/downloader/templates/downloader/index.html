@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YouTube → MP3 Converter</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Glass Effect */
+        .glass {
+            backdrop-filter: blur(14px);
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+        
+
+        /* Loader */
+        .loader {
+            border: 4px solid #ffffff30;
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            animation: spin 0.8s linear infinite;
+            margin: auto;
+            display: none;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Progress Bar */
+        .progress {
+            width: 0%;
+            height: 6px;
+            background: #4ade80;
+            border-radius: 4px;
+            transition: width 1.4s ease;
+        }
+
+        select option {
+        color: black;
+        }
+    </style>
+
+    <script>
+        function showLoader() {
+            document.getElementById("loader").style.display = "block";
+            document.getElementById("progress-bar").style.width = "100%";
+        }
+    </script>
+</head>
+
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
+
+    <div class="glass p-8 w-[420px]">
+        <h1 class="text-3xl font-bold text-center mb-6">YouTube → MP3</h1>
+
+        <!-- Loader -->
+        <div id="loader" class="loader mb-4"></div>
+        <div class="w-full bg-white/20 rounded-full overflow-hidden mb-4">
+            <div id="progress-bar" class="progress"></div>
+        </div>
+
+        {% if qualities %}
+            <!-- Quality Selection -->
+            <h2 class="text-lg font-semibold mb-3">Select MP3 Quality</h2>
+
+            <form method="POST" onsubmit="showLoader()">
+                {% csrf_token %}
+
+                <select name="quality_select" required
+                    class="w-full mb-4 p-3 bg-white/20 rounded-lg outline-none focus:ring-2 ring-white/40">
+                    {% for q, file in qualities.items %}
+                        <option value="{{ file }}">{{ q }} kbps</option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit"
+                    class="w-full mt-2 bg-green-500 hover:bg-green-600 text-black font-bold py-2 rounded-lg">
+                    Download Audio
+                </button>
+                
+
+            </form>
+
+        {% else %}
+        
+            <!-- URL Input -->
+            <form method="POST" onsubmit="showLoader()">
+                {% csrf_token %}
+                <input
+                    type="text"
+                    name="youtube_url"
+                    placeholder="Paste YouTube URL..."
+                    class="w-full p-3 mb-4 bg-white/20 rounded-lg outline-none focus:ring-2 ring-white/40"
+                    required
+                >
+
+                <button type="submit"
+                    class="w-full bg-blue-500 hover:bg-blue-600 text-black font-bold py-2 rounded-lg">
+                    Convert
+                </button>
+            </form>
+
+        {% endif %}
+        <br/>
+        
+        <a href="{% url 'video_page' %}"
+            style="
+            display:inline-block;
+            padding:10px 18px;
+            background:#007bff;
+            color:white;
+            border-radius:6px;
+            text-decoration:none;
+            font-weight:600;
+            justify-content: center;
+            ">
+            🔗 Switch to MP4 Downloader
+        </a>
+
+    </div>
+
+</body>
+</html>
