@@ -2,11 +2,19 @@
 
 ## 🎥 Demo Videos
 
-▶️ **MP3 Download Feature**  
-[Watch Demo](./mp3_demo.mp4)
-
 ▶️ **MP4 Download Feature**  
-[Watch Demo](./mp4_demo.mp4)
+
+
+https://github.com/user-attachments/assets/88b61205-2537-4909-be3e-83dd58fcbc3d
+
+
+
+▶️ **MP3 Download Feature**  
+
+
+https://github.com/user-attachments/assets/f3efecec-5109-40e4-8482-e92cea1bd5dd
+
+
 
 A Django-based REST API system that downloads and converts YouTube videos into **MP3** and **MP4** formats using **yt-dlp** and **FFmpeg**.
 
